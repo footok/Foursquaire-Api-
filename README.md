@@ -1,6 +1,5 @@
 # Introduction
 Android application made by eclipse that searches near coffee shops using gps. 
-
 Anyone can use it by simply download zip file and import project into eclipse. 
 
 # Description 
@@ -14,6 +13,11 @@ Gps will be updated every minute.
 # Assumption
 
 Assume that user's gps is on and it will get current latitude and longitude. 
+
+
+# Accomplishment
+This application is able to get name of coffee shops and location within 5km and
+update user's location every minute. 
 
 # Developed by
 Harry Lee - footok@gmail.com 
