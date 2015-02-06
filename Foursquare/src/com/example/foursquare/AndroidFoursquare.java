@@ -42,12 +42,7 @@ public class AndroidFoursquare extends ListActivity {
 
 	// we will need to take the latitude and the logntitude from a certain point
 	// this is the center of New York
-	final String latitude = "-33.87365";
-	final String longitude = "151.206889";
-
-	double lat = -33333.87365;
-	//String total2 = String.valueOf(lat);
-	//double lng = location.getLongitude();
+	
 
 	ArrayAdapter<String> myAdapter;
 	
@@ -58,26 +53,10 @@ public class AndroidFoursquare extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		new fourquare().execute();
+		
 		// start the AsyncTask that makes the call for the venus search.
-		
-		
-		GpsInfo GPS = new GpsInfo(AndroidFoursquare.this);
-        // GPS 사용유무 가져오기
-        if (GPS.isGetLocation()) {
+		new fourquare().execute();
 
-            double latitude = GPS.getLatitude();
-            double longitude = GPS.getLongitude();
-             
-                    
-            Toast.makeText(
-                    getApplicationContext(),
-                    "Your location - \nlatitude: " + latitude + "\nlongitude: " + longitude,
-                    Toast.LENGTH_LONG).show();
-        } else {
-            // GPS 를 사용할수 없으므로
-        	GPS.showSettingsAlert();
-        }
 	}
 	
 	
@@ -92,10 +71,8 @@ public class AndroidFoursquare extends ListActivity {
 	    
 
 		double latitude2 = gps.getLatitude();
-	    double longitude2 = gps.getLongitude();
+		double longitude2 = gps.getLongitude();
 	    
-	    //String total2 = String.valueOf(latitude2);
-	    //String total3 = String.valueOf(longitude2);
 	    
 	    
 		@Override
