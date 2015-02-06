@@ -16,23 +16,23 @@ public class GpsInfo extends Service implements LocationListener {
   
     private final Context mContext;
   
-    // 현재 GPS 사용유무
+    // Current GPS status
     boolean isGPSEnabled = false;
   
-    // 네트워크 사용유무 
+    // Current network status 
     boolean isNetworkEnabled = false;
   
-    // GPS 상태값
+    // GPS value
     boolean isGetLocation = false;
   
     Location location; 
-    double lat; // 위도 
-    double lon; // 경도
+    double lat; // latitude 
+    double lon; // longitude
   
-    // 최소 GPS 정보 업데이트 거리 10미터 
+    // minimum gps update distance = 10m 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; 
   
-    // 최소 GPS 정보 업데이트 시간 밀리세컨이므로 1분
+    // minimum gps update time = 1 minute 
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; 
   
     protected LocationManager locationManager;
@@ -47,19 +47,19 @@ public class GpsInfo extends Service implements LocationListener {
             locationManager = (LocationManager) mContext
                     .getSystemService(LOCATION_SERVICE);
   
-            // GPS 정보 가져오기 
+            // Bring gps information 
             isGPSEnabled = locationManager
                     .isProviderEnabled(LocationManager.GPS_PROVIDER);
   
-            // 현재 네트워크 상태 값 알아오기 
+            // Get current network value  
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
   
             if (!isGPSEnabled && !isNetworkEnabled) {
-                // GPS 와 네트워크사용이 가능하지 않을때 소스 구현
+                // if GPS and network is not available 
             } else {
                 this.isGetLocation = true;
-                // 네트워크 정보로 부터 위치값 가져오기 
+                // Bring current location from network
                 if (isNetworkEnabled) {
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
@@ -70,7 +70,7 @@ public class GpsInfo extends Service implements LocationListener {
                         location = locationManager
                                 .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                         if (location != null) {
-                            // 위도 경도 저장 
+                            // Store latitude and longitude
                             lat = location.getLatitude();
                             lon = location.getLongitude();
                         }
@@ -102,7 +102,7 @@ public class GpsInfo extends Service implements LocationListener {
     }
       
     /**
-     * GPS 종료 
+     * End Gps  
      * */
     public void stopUsingGPS(){
         if(locationManager != null){
@@ -111,7 +111,7 @@ public class GpsInfo extends Service implements LocationListener {
     }
       
     /**
-     * 위도값을 가져옵니다. 
+     * Get latitude 
      * */
     public double getLatitude(){
         if(location != null){
@@ -121,7 +121,7 @@ public class GpsInfo extends Service implements LocationListener {
     }
       
     /**
-     * 경도값을 가져옵니다. 
+     * Get longitude 
      * */
     public double getLongitude(){
         if(location != null){
@@ -131,40 +131,13 @@ public class GpsInfo extends Service implements LocationListener {
     }
       
     /**
-     * GPS 나 wife 정보가 켜져있는지 확인합니다. 
+     * Check whether gps is on or not
      * */
     public boolean isGetLocation() {
         return this.isGetLocation;
     }
       
-    /**
-     * GPS 정보를 가져오지 못했을때 
-     * 설정값으로 갈지 물어보는 alert 창
-     * */
-    public void showSettingsAlert(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
- 
-        alertDialog.setTitle("GPS 사용유무셋팅");
-        alertDialog.setMessage("GPS 셋팅이 되지 않았을수도 있습니다. \n 설정창으로 가시겠습니까?");
-   
-        // OK 를 누르게 되면 설정창으로 이동합니다. 
-        alertDialog.setPositiveButton("Settings", 
-                                new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                mContext.startActivity(intent);
-            }
-        });
-        // Cancle 하면 종료 합니다. 
-        alertDialog.setNegativeButton("Cancel", 
-                              new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            dialog.cancel();
-            }
-        });
- 
-        alertDialog.show();
-    }
+
   
     @Override
     public IBinder onBind(Intent arg0) {
