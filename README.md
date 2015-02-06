@@ -1,6 +1,6 @@
 # Introduction
 Android application made by eclipse that searches near coffee shops using gps. 
-Anyone can use it by simply download zip file and import project into eclipse. 
+Anyone can use it by simply downloading zip file and import project into eclipse. 
 
 # Description 
 This is an android application that implemented Foursquare api to show
